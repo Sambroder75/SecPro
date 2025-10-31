@@ -1,0 +1,167 @@
+:root {
+    --color-primary-orange: #e8a05e;
+    --color-secondary-red: #cc4444;
+    --color-background-light: #f7f3ed;
+    --color-text-dark: #333;
+    --color-text-light: #555;
+    --content-padding: 5%;
+    --navbar-height: 70px; /* Perkiraan tinggi navbar */
+}
+
+/* --- Base Body and Layout --- */
+.detail-page-body {
+    font-family: 'Georgia', serif;
+    background-color: white;
+    color: var(--color-text-dark);
+    margin: 0;
+    padding: 0;
+    /* FIX: Tambahkan padding atas setinggi navbar agar konten tidak tertutup */
+    padding-top: var(--navbar-height); 
+}
+
+/* --- Navbar Sederhana (Harus menggunakan kelas yang benar dari HTML utama) --- */
+.detail-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px var(--content-padding);
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    /* FIX: Ubah position sticky menjadi fixed agar tetap di atas saat scroll */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: var(--navbar-height); /* Tentukan tinggi navbar agar padding body akurat */
+}
+
+.detail-navbar .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.search-user-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.search-input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 10px;
+    width: 100px;
+    text-align: right;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: var(--color-text-dark);
+}
+
+.user-icon-btn {
+    border: 1px solid var(--color-text-dark);
+    border-radius: 50%;
+    padding: 3px 6px;
+    font-size: 1em;
+}
+
+/* --- Kontainer Utama (Dua Kolom) --- */
+.recipe-detail-container {
+    display: flex;
+    /* FIX: min-height diatur agar kontainer tetap terlihat penuh */
+    min-height: calc(100vh - var(--navbar-height)); 
+}
+
+/* --- Kolom Kiri: Gambar & Gradien --- */
+.image-column {
+    width: 40%;
+    position: relative;
+    overflow: hidden;
+}
+
+.recipe-image {
+    width: 100%;
+    /* Mengisi 40% dari tinggi kolom untuk gambar */
+    height: 40%; 
+    object-fit: cover;
+    display: block;
+}
+
+.gradient-area {
+    position: absolute;
+    top: 40%; /* Dimulai tepat di bawah gambar */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    /* Gradien Oranye-Merah seperti di gambar */
+    background: linear-gradient(to top, 
+        #cc4444 0%, 
+        #e8a05e 100% 
+    );
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 20px 30px;
+}
+
+.back-btn {
+    background: none;
+    border: 2px solid white;
+    color: white;
+    font-size: 1.1em;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* --- Kolom Kanan: Konten Resep --- */
+.content-column {
+    width: 60%;
+    /* FIX: Hapus margin-top, karena dorongan sudah dilakukan oleh padding body */
+    padding: 50px 70px 50px 50px; 
+    line-height: 1.6;
+}
+
+.recipe-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5em;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.recipe-description {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    color: var(--color-text-light);
+    margin-bottom: 30px;
+}
+
+.ingredients-section h2,
+.steps-section h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.ingredients-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 30px;
+    color: var(--color-text-light);
+}
+
+.ingredients-list li {
+    margin-bottom: 8px;
+}
+
+.steps-content p {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-text-light);
+    margin-bottom: 15px;
+}

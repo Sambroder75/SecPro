@@ -1,0 +1,174 @@
+/* --- CSS Variables --- */
+:root {
+    --color-primary-green: #a7d06e;
+    --color-background-light: #f7f3ed;
+    --color-border-gray: #ccc;
+    --color-field-background: #fcfcfc;
+    --color-placeholder-text: #999;
+    --content-padding: 5%;
+}
+
+/* --- Base Body and Layout --- */
+.create-page-body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-background-light);
+    color: #333;
+    min-height: 100vh;
+}
+
+/* --- FIX: Header Alignment (Logo Left, Button Right) --- */
+.create-navbar {
+    display: flex;
+    justify-content: space-between; /* Pushes Logo to left, Button to right */
+    align-items: center;
+    padding: 15px var(--content-padding);
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.create-navbar .logo-container {
+    /* Ensures the logo area is cleanly on the left */
+    font-family: 'Georgia', serif;
+    font-size: 1.5em;
+}
+
+.create-navbar .header-logo {
+    /* Sizing the logo image to be clearly visible */
+    height: 35px; 
+    width: auto;
+    display: block;
+}
+
+.create-btn {
+    background-color: var(--color-primary-green);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.create-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 var(--content-padding);
+    position: relative; /* Needed for positioning the back button */
+}
+
+/* --- FIX: Back Button Placement --- */
+.back-link {
+    /* Aligned left, slightly above the form content */
+    margin-bottom: 5px; 
+    padding-left: 0; /* Align it to the content edge */
+    position: relative; /* Keep it in the flow */
+    z-index: 10;
+}
+
+.back-link button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+    color: #333;
+    padding: 0;
+}
+
+/* --- Form Layout (Two Columns) --- */
+.recipe-form {
+    display: flex;
+    gap: 40px;
+    /* Pushes the form down so the "Back" button sits cleanly above it */
+    margin-top: 20px; 
+}
+
+.upload-column {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* FIX: Pushes the file upload box down slightly to align with right inputs */
+    padding-top: 10px; 
+}
+
+.input-column {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+/* --- File Upload Box Style --- */
+.file-upload-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%; 
+    min-height: 450px; 
+    background-color: var(--color-field-background);
+    border: 1px solid var(--color-border-gray);
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    color: var(--color-placeholder-text);
+    transition: background-color 0.2s;
+}
+
+.file-upload-box:hover {
+    background-color: #f0f0f0;
+}
+
+.plus-icon {
+    font-size: 4em;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.choose-text {
+    font-size: 1em;
+}
+
+#recipe-file {
+    display: none;
+}
+
+/* --- Input Fields (Title, Description, Resep, Langkah-langkah) --- */
+.input-column label {
+    font-weight: 600;
+    font-size: 1em;
+    margin-bottom: 5px;
+    display: block; 
+}
+
+.input-column input[type="text"],
+.input-column textarea {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--color-border-gray);
+    border-radius: 8px;
+    background-color: var(--color-field-background);
+    font-size: 1em;
+    font-family: inherit;
+    resize: vertical; 
+    outline: none;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.input-column input[type="text"] {
+    height: 50px; 
+}
+
+.input-column textarea {
+    min-height: 100px; 
+}
+
+.input-column input[type="text"]:focus,
+.input-column textarea:focus {
+    border-color: var(--color-primary-green);
+}
