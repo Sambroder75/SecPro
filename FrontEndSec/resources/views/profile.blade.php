@@ -11,7 +11,7 @@
 
   <header class="profile-header">
     <button class="back-btn" onclick='window.location.href="{{ url("/mainpage") }}"'>
-      <img src="{{ asset('foto/arrow1.png') }}" alt="back">
+        <img src="{{ asset('foto/arrow1.png') }}" alt="back">
     </button>
     <button class="edit-btn" onclick='window.location.href="{{ url("/editprofile") }}"'>Edit Profile</button>
     <button class="create-btn" onclick='window.location.href="{{ url("/createpage") }}"'>Create +</button>
@@ -35,31 +35,44 @@
 
   <div class="food-grid">
     <div class="food-card">
-      <a href="{{ url('/detailresep') }}">
-        <img src="{{ asset('foto/food1.jpg') }}" alt="Gambar">
-      </a>
+      <img src="{{ asset('foto/food1.jpg') }}" alt="Gambar">
+      <div class="card-actions">
+        <button class="delete-btn" onclick="openDeletePopup()">🗑️</button>
+        <button class="edit-btn-card" onclick="openEditPopup('{{ asset('foto/food1.jpg') }}')">🖍</button>
+      </div>
       <h3>French Croissant</h3>
       <p>Roti Prancis otentik dengan tekstur renyah dan rasa mentega yang kaya, cocok untuk camilan atau sarapan.</p>
     </div>
 
     <div class="food-card">
       <img src="{{ asset('foto/food4.jpg') }}" alt="Gambar">
+      <div class="card-actions">
+        <button class="delete-btn" onclick="openDeletePopup()">🗑️</button>
+        <button class="edit-btn-card" onclick="openEditPopup('{{ asset('foto/food4.jpg') }}')">🖍</button>
+      </div>
       <h3>Ribeye Steak dengan Kentang Panggang</h3>
       <p>Potongan daging ribeye premium yang dimasak sempurna, disajikan dengan kentang panggang yang gurih.</p>
     </div>
 
     <div class="food-card">
       <img src="{{ asset('foto/food2.jpg') }}" alt="Gambar">
+      <div class="card-actions">
+        <button class="delete-btn" onclick="openDeletePopup()">🗑️</button>
+        <button class="edit-btn-card" onclick="openEditPopup('{{ asset('foto/food2.jpg') }}')">🖍</button>
+      </div>
       <h3>Korean Beef Bibimbap Bowl</h3>
       <p>Nasi campur Korea dengan irisan daging sapi, sayuran segar, dan telur, disajikan untuk diaduk bersama.</p>
     </div>
 
     <div class="food-card">
       <img src="{{ asset('foto/food3.jpg') }}" alt="Gambar">
+      <div class="card-actions">
+        <button class="delete-btn" onclick="openDeletePopup()">🗑️</button>
+        <button class="edit-btn-card" onclick="openEditPopup('{{ asset('foto/food3.jpg') }}')">🖍</button>
+      </div>
       <h3>Belgian Waffle</h3>
       <p>Wafel renyah dengan buah beri segar dan krim lembut, sempurna untuk sarapan mewah.</p>
     </div>
   </div>
-
 </body>
 </html>

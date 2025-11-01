@@ -20,7 +20,7 @@
                 </button>
             </form>
 
-            <button class="profile-btn" onclick="window.location.href='./profile.html'">
+            <button class="profile-btn" onclick="window.location.href='./profile'">
                 <img src="./foto/logoprofile.png" alt="Profile Icon">
             </button>
         </div>
