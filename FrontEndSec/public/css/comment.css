@@ -1,0 +1,152 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  background: linear-gradient(135deg, #fff5c9, #ffffff 30%, #fde0ae 100%);
+}
+
+main {
+  display: flex;
+  gap: 40px;
+  padding: 24px 5%;
+  max-width: 1200px;
+  margin: 100px auto 60px; /* leave room for fixed navbar */
+  box-sizing: border-box;
+}
+
+.recipe-section {
+  width: 58%;
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  color: var(--color-text-dark, #333);
+  cursor: pointer;
+  margin-bottom: 18px;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.author img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.recipe-img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.comments-section {
+  width: 40%;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.comments-section h2 {
+  text-align: center;
+  margin: 0 0 18px 0;
+  font-family: 'Georgia', serif;
+  color: var(--color-text-dark, #333);
+}
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0eae0;
+}
+
+.comment:last-of-type {
+  border-bottom: none;
+}
+
+.comment img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.comment h4 {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.comment p {
+  margin: 0;
+  font-size: 13px;
+  color: #555;
+}
+
+.comment-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 14px;
+  margin-top: 18px;
+  border-top: 1px solid #f0eae0;
+}
+
+.comment-input img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
+
+.comment-input input {
+  flex-grow: 1;
+  padding: 10px 14px;
+  border: 1px solid #eee;
+  border-radius: 24px;
+  background-color: #fafafa;
+  font-size: 14px;
+}
+
+.comment-input input:focus {
+  outline: none;
+  border-color: #e1d2c2;
+  background-color: #fff;
+}
+
+.comment-input button {
+  background: var(--color-primary-orange, #ffd27a);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.comment-input button img {
+  width: 18px;
+  height: 18px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  main {
+    flex-direction: column;
+    margin: 120px 16px 40px;
+    gap: 24px;
+  }
+  .recipe-section, .comments-section {
+    width: 100%;
+  }
+  .comments-section {
+    padding: 16px;
+  }
+}
