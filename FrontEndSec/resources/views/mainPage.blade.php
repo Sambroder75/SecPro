@@ -20,7 +20,7 @@
                 </button>
             </form>
 
-            <button class="profile-btn" onclick="window.location.href='./profile'">
+            <button class="profile-btn" onclick="window.location.href='./profile.html'">
                 <img src="./foto/logoprofile.png" alt="Profile Icon">
             </button>
         </div>
@@ -42,6 +42,7 @@
         <section class="trending-now-section">
             <div class="trending-cards-container">
                 
+                <div class="recipe-card-wrap">
                 <a href="detailresep.html" class="recipe-card">
                     <img src="foto/soy_fried_chicken.jpg" alt="Soy Fried Chicken" class="card-image">
                     <div class="card-details">
@@ -60,9 +61,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="save-button" aria-label="Save Recipe">bookmark</div> 
                 </a>
+                <a href="comment.html" class="card-comment" aria-label="Comments">💬</a>
+                <div class="save-button" aria-label="Save Recipe">bookmark</div>
+                </div>
                 
+                <div class="recipe-card-wrap">
                 <a href="detailresep.html" class="recipe-card">
                     <img src="foto/pepperoni_pizza.jpeg" alt="Pepperoni Pizza" class="card-image">
                     <div class="card-details">
@@ -81,9 +85,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="save-button" aria-label="Save Recipe">bookmark</div>
                 </a>
+                <a href="comment.html" class="card-comment" aria-label="Comments">💬</a>
+                <div class="save-button" aria-label="Save Recipe">bookmark</div>
+                </div>
 
+                <div class="recipe-card-wrap">
                 <a href="detailresep.html" class="recipe-card">
                     <img src="foto/fried_chicken.jpg" alt="Fried Chicken" class="card-image">
                     <div class="card-details">
@@ -96,14 +103,20 @@
                                 <span>Aurelia Subantono</span>
                                 <span class="date">May 18, 2024</span>
                             </div>
+
+                            <div class="card-actions">
+                                
                             <div class="stats">
                                 <span class="views"></span>
                                 <span class="likes"></span>
                             </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="save-button" aria-label="Save Recipe">bookmark</div>
                 </a>
+                <a href="comment.html" class="card-comment" aria-label="Comments">💬</a>
+                <div class="save-button" aria-label="Save Recipe">bookmark</div>
+                </div>
                 
                 <a href="createpage.html" class="add-recipe-card">
                     <div class="plus-icon">➕</div>

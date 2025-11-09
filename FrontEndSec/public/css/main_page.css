@@ -120,14 +120,49 @@ body {
     margin: 0;
 }
 
+/* --- Hover Garis Bawah untuk Navigasi --- */
 .main-nav a {
+    position: relative;
     text-decoration: none;
     color: var(--color-text-dark);
     font-size: 1.05em;
     font-weight: 500;
-    /* FIX: Applied Georgia font to navigation links */
     font-family: Georgia, serif; 
+    transition: color 0.3s ease;
 }
+
+/* Garis bawah muncul dari tengah dengan animasi */
+.main-nav a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -4px;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-primary-green); /* warna garis */
+    transition: transform 0.3s ease;
+}
+
+/* Saat hover */
+.main-nav a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+/* Opsional: ubah warna teks saat hover */
+.main-nav a:hover {
+    color: var(--color-primary-green);
+}
+
+/* Untuk link aktif (Home, misalnya) */
+.main-nav a.active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+.main-nav a.active {
+    color: var(--color-primary-green);
+}
+
 /* END OF HEADER FIXES */
 
 
@@ -155,16 +190,50 @@ body {
     padding: 40px 0; 
 }
 
-.recipe-card {
-    background-color: white;
+/* wrapper so we can position badges without nesting anchors */
+.recipe-card-wrap {
+    position: relative;
+    width: 280px;
+    flex-shrink: 0;
+    /* restore full-card white surface */
+    background-color: #ffffff;
     border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); 
-    width: 280px; 
-    flex-shrink: 0; 
-    text-decoration: none; 
-    color: inherit;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
     overflow: hidden;
-    position: relative; 
+}
+
+.recipe-card {
+    /* card content sits inside the white wrapper now */
+    background: transparent;
+    border-radius: 0;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* small comment icon in card (absolute, doesn't affect layout) */
+.card-comment {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--color-primary-orange, #ffd27a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    z-index: 20;
+}
+.card-comment:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.16);
 }
 
 .card-image {
@@ -209,10 +278,17 @@ body {
     display: flex;
     align-items: center;
     gap: 4px;
+
+}
+
+.stats {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px; /* consistent spacing between icons */
 }
 
 .stats span {
-    margin-left: 10px;
+    margin: 0px;
 }
 
 .save-button {
