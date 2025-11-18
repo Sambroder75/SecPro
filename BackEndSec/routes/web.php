@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RecipeController;
 
 Route::get('/', function () {
     return view('index');
@@ -45,3 +46,6 @@ Route::get('/profile', function () {
 Route::get('/register', function () {
     return view('register');
 });
+
+Route::resource('recipes', RecipeController::class);
+Route::get('/recipes/create', [RecipeController::class, 'create'])->name('recipes.create');

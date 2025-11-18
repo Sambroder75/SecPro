@@ -118,15 +118,13 @@ body.index-body {
     }
 
     .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 40px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1000; 
+        display: flex;              
+        justify-content: space-between; 
+        align-items: center;        
+        padding: 10px 50px;         
+        width: 100%;                
+        box-sizing: border-box;     
+
     }
 
     .logo {
@@ -254,7 +252,7 @@ body.index-body {
   .right-side {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
   }
 
   .search-form {

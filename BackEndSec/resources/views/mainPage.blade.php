@@ -11,14 +11,9 @@
 
     <header class="navbar">
         <img src="./foto/logokecil.png" alt="Logo Dapur Rasa" class="logo">
-
         <div class="right-side">
-            <form action="./search.html" method="get" class="search-form">
-                <input type="text" name="q" placeholder="Cari Resep...">
-                <button type="submit">
-                    <img src="./foto/search.png" alt="Search Icon">
-                </button>
-            </form>
+
+            @include('partials.search-bar')
 
             <button class="profile-btn" onclick="window.location.href='./profile.html'">
                 <img src="./foto/logoprofile.png" alt="Profile Icon">
