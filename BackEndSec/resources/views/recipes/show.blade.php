@@ -61,5 +61,42 @@
         </div>
     </main>
 
+    <section class="comments-section">
+        <div class="comments-container">
+            <h2>Comments</h2>
+
+            @auth
+            <form action="{{ route('comments.store', $recipe) }}" method="POST" class="comment-form">
+                @csrf
+                <textarea name="comment_text" rows="3" placeholder="Write your comment..." required></textarea>
+                <button type="submit">Post Comment</button>
+            </form>
+            @else
+            <p>Please <a href="{{ route('login') }}">login</a> to post a comment.</p>
+            @endauth
+
+            <div class="comments-list">
+                @foreach($recipe->comments()->latest()->get() as $comment)
+                    <div class="comment-item">
+                        <div class="comment-meta">
+                            <strong>{{ $comment->username ?? $comment->user?->name ?? 'Guest' }}</strong>
+                            <span class="comment-time">{{ $comment->created_at->diffForHumans() }}</span>
+                        </div>
+                        <div class="comment-body">{{ $comment->comment_text }}</div>
+
+                        <!-- Delete button: Only for logged in users who own the comment -->
+                        @if(auth()->check() && auth()->id() === $comment->user_id)
+                        <form action="{{ route('comments.destroy', $comment) }}" method="POST" onsubmit="return confirm('Delete this comment?');">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="delete-comment">Delete</button>
+                        </form>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
 </body>
 </html>

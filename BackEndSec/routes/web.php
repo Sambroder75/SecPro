@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', function () {
     return view('index');
@@ -49,3 +50,12 @@ Route::get('/register', function () {
 
 Route::resource('recipes', RecipeController::class);
 Route::get('/recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
+
+// Comments
+Route::post('/recipes/{recipe}/comments', [CommentController::class, 'store'])
+    ->name('comments.store')
+    ->middleware('auth');
+
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
+    ->name('comments.destroy')
+    ->middleware('auth');
