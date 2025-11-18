@@ -113,7 +113,7 @@
                 <div class="save-button" aria-label="Save Recipe">bookmark</div>
                 </div>
                 
-                <a href="createpage.html" class="add-recipe-card">
+                <a href="{{ route('recipes.create') }}" class="add-recipe-card">
                     <div class="plus-icon">➕</div>
                     <p>Add your own recipe</p>
                 </a>
