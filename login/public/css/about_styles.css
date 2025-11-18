@@ -1,0 +1,178 @@
+/* --- Variables specific to About Page for color matching --- */
+:root {
+    --color-gradient-start: #fff0d8; /* Light cream/beige */
+    --color-gradient-end: #e8a05e;   /* Orange/Brown */
+    --color-text-dark: #333;
+    --color-ring-light: rgba(255, 255, 255, 0.4); /* Faint white/transparent ring color */
+}
+
+/* --- Global Body Styling --- */
+.about-page-body {
+    /* Use a light background consistent with the design edge */
+    background-color: var(--color-gradient-start); 
+    overflow-x: hidden; 
+}
+
+/* --- Header Styling --- */
+.navbar {
+    padding: 20px 5%; 
+    background: none; 
+    box-shadow: none;
+    position: absolute; 
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top-nav button {
+    background: none;
+    border: none;
+    color: var(--color-text-dark);
+    font-family: 'Georgia', serif; 
+    font-size: 1.1em;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+/* --- Main Hero Section Layout (Text and Image Containers) --- */
+.about-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    
+    /* Gradient background remains the same, adjusted slightly for About Page colors */
+    background: linear-gradient(to top left, 
+        #f5f0e3 0%, 
+        #f5f0e3 40%, 
+        #e3aa63 100% 
+    );
+}
+
+.about-text {
+    width: 50%; /* Main text block width */
+    padding: 10% 2% 10% 10%; /* Padding adjustment for better alignment */
+    text-align: left;
+    position: relative;
+    z-index: 10;
+}
+
+.about-title {
+    font-family: 'Playfair Display', serif; 
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.about-description {
+    font-family: 'Montserrat', sans-serif; 
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--color-text-dark);
+}
+
+/* --- FIX: Image Section Styling - Use Index.html logic and remap --- */
+.about-images {
+    position: relative; 
+    width: 50%; /* Image block width */
+    min-height: 100vh; 
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center content vertically and horizontally */
+    padding: 0; 
+    
+    /* The large background circle effect is created here */
+    /* FIX: Replicating the radial gradient background effect from index.html CSS */
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 60%);
+}
+
+/* FIX: Creating the concentric circles behind the main image cluster 
+   We will use a new ::after pseudo-element to create the layered rings 
+   to ensure they align with the main image cluster on the right.
+*/
+.about-images::after {
+    content: '';
+    position: absolute;
+    /* This needs to be precisely aligned with the dominant image (food2) */
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    z-index: 1; /* Behind the images */
+    
+    /* Center the rings within the image container */
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%); 
+    
+    /* Creating the concentric circles for the About page design */
+    box-shadow: 
+        0 0 0 10px rgba(255, 255, 255, 0.5), /* Inner faint ring */
+        0 0 0 30px rgba(255, 255, 255, 0.4), /* Middle ring */
+        0 0 0 70px rgba(255, 255, 255, 0.2); /* Outer ring */
+}
+
+
+/* FIX: Individual food image styling - Using the absolute positioning values provided in your template */
+.about-images img {
+    position: absolute; 
+    border-radius: 50%; 
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+    object-fit: cover;
+    z-index: 10;
+    border: 5px solid white; /* Ensures clean white edge around bowls */
+}
+
+/* Mapping your index.html image styles onto the About Page structure */
+.about-images .food1 { /* Top image - the small dark one (steak bowl) */
+    width: 200px; /* Reduced width slightly for better fit */
+    height: 200px;
+    top: 25%; /* Adjusted top position to be higher */
+    right: 5%; /* Aligned to the right edge */
+    z-index: 12;
+}
+.about-images .food2 { /* Center/Most Prominent Image (Pasta Bowl) */
+    width: 300px; /* Dominant image size */
+    height: 300px;
+    top: 50%; /* Center position */
+    right: 15%; /* Shifted left relative to the container */
+    transform: translateY(-50%); /* Vertical centering based on its own height */
+    z-index: 15;
+}
+.about-images .food3 { 
+    /* The third image is not clearly visible/needed in the final screenshot, 
+       but we will position it out of the way to avoid further confusion while keeping the class name */
+    width: 150px;
+    height: 150px;
+    bottom: 0;
+    left: 0;
+    opacity: 0; /* Temporarily hide or position off-screen if only two are visible */
+}
+
+/* Media queries for responsiveness (as before) */
+@media (max-width: 768px) {
+    .about-hero {
+        flex-direction: column;
+    }
+    .about-text, .about-images {
+        width: 100%;
+        padding: 5% 8%;
+    }
+    .about-images {
+        min-height: 50vh;
+    }
+    /* On small screens, reset absolute positioning and stack them */
+    .about-images img {
+        position: static; 
+        margin: 20px auto;
+        transform: none !important;
+        width: 150px; 
+        height: 150px;
+    }
+    .about-images::after {
+        display: none; /* Hide rings on small screens */
+    }
+}
