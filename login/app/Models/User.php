@@ -39,4 +39,9 @@ class User extends Authenticatable
             $user->assignRole('user');
         });
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

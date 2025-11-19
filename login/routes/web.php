@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\CommentController;
 
 Route::get('/', function () {
     return view('index');
@@ -56,3 +57,11 @@ Route::post('/registration', [AuthManager::class,'registrationPost'])->name('reg
 Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 Route::resource('recipes', RecipeController::class);
 Route::get('/recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
+
+Route::post('/recipes/{recipe}/comments', [CommentController::class, 'store'])
+    ->name('comments.store')
+    ->middleware('auth');
+
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
+    ->name('comments.destroy')
+    ->middleware('auth');

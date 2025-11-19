@@ -16,4 +16,9 @@ class Recipe extends Model
         'steps',
         'image_path',
     ];
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
