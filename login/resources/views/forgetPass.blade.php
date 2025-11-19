@@ -15,9 +15,28 @@
 
     <h1>Forgot Password</h1>
 
-    <form class="login-form">
-      <input type="email" placeholder="Enter your email" required>
-      <button type="button" onclick='window.location.href="{{ url("/forgetpass2") }}"'>Next</button>
+    <!-- SUCCESS MESSAGE -->
+    @if (session('status'))
+      <div class="alert-success">
+          {{ session('status') }}
+      </div>
+    @endif
+
+    <!-- VALIDATION ERROR MESSAGE -->
+    @if ($errors->any())
+      <div class="alert-error">
+          <ul>
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+              @endforeach
+          </ul>
+      </div>
+    @endif
+
+    <form class="login-form" method="POST" action="{{ route('password.email') }}">
+      @csrf
+      <input type="email" name="email" placeholder="Enter your email" required>
+      <button type="submit">Send Reset Link</button>
     </form>
 
     <div class="register">

@@ -12,7 +12,7 @@ class AuthManager extends Controller
 {
     function login() {
         if (Auth::check()) {
-            return redirect(route('mainPage'));
+            return redirect(route('mainpage'));
         }
         return view('login');
     }
@@ -35,10 +35,10 @@ class AuthManager extends Controller
         }
 
         if (Auth::user()->hasRole('user')) {
-        return redirect()->route('mainPage');
+        return redirect()->route('mainpage');
         }
 
-            return redirect()->intended(route('mainPage')); 
+            return redirect()->intended(route('mainpage')); 
         }
 
         return redirect(route('login'))->with("error", "Login details are not valid"); 

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dapur Rasa - Create Recipe</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Georgia:wght@400;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="{{ asset('css/create_page_styles.css') }}"> 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}"> 
 </head>
@@ -30,13 +29,33 @@
         <form class="recipe-form" id="recipe-form-id" action="{{ route('recipes.store') }}" method="POST" enctype="multipart/form-data">
             @csrf 
             <div class="upload-column">
-                <label for="recipe-file" class="file-upload-box">
-                    <span class="plus-icon">+</span>
-                    <span class="choose-text">Choose a file</span>
+                
+                <label for="recipe-file" class="file-upload-box" id="preview-box">
+                    <span class="plus-icon" id="icon-plus">+</span>
+                    <span class="choose-text" id="text-choose">Choose a file</span>
                 </label>
-                <input type="file" id="recipe-file" name="recipeImage" accept="image/*" required>
+
+                <input 
+                    type="file" 
+                    id="recipe-file" 
+                    name="recipeImage" 
+                    accept="image/*" 
+                    required
+                    onchange="if(this.files && this.files[0]) { 
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            document.getElementById('preview-box').style.backgroundImage = 'url('+e.target.result+')';
+                            document.getElementById('preview-box').style.backgroundSize = 'cover';
+                            document.getElementById('preview-box').style.border = 'none';
+                            document.getElementById('icon-plus').style.display = 'none';
+                            document.getElementById('text-choose').style.display = 'none';
+                        };
+                        reader.readAsDataURL(this.files[0]);
+                    }"
+                >
+                
                 @error('recipeImage')
-                    <span style="color: red; font-size: 0.8rem;">{{ $message }}</span>
+                    <span style="color: red; font-size: 0.8rem; margin-top: 5px; display: block;">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -71,6 +90,5 @@
         </form>
     </main>
 
-    <script src="{{ asset('js/image-preview.js') }}"></script>
 </body>
 </html>

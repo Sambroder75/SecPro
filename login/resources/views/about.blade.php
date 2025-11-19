@@ -3,22 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dapur Rasa - About Us</title>
+    <title>Dapur Rasa - Contact</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Playfair+Display&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/about_styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main_page.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/contact_page.css') }}">
 </head>
-<body class="about-page-body">
-    
+
+<body class="contact-page-body">
+
+    <!-- HEADER (sama seperti home & about) -->
     <header class="navbar">
-        <img src="{{ asset('foto/logobesar.png') }}" alt="Logo Dapur Rasa" class="logo">
+        <img src="{{ asset('foto/logokecil.png') }}" alt="Logo Dapur Rasa" class="logo">
 
-        <nav class="top-nav">
-            <button onclick='window.location.href="{{ url("/mainpage") }}"'>Home</button>
-            <button onclick='window.location.href="{{ url("/contact") }}"'>Contact</button>
+        <div class="right-side">
+            <form action="#" method="get" class="search-form">
+                <input type="text" name="q" placeholder="Cari Resep...">
+                <button type="submit">
+                    <img src="{{ asset('foto/search.png') }}" alt="Search Icon">
+                </button>
+            </form>
 
-        </nav>
+            <button class="profile-btn" onclick="window.location.href='{{ url("/profile") }}'">
+                <img src="{{ asset('foto/logoprofile.png') }}" alt="Profile Icon">
+            </button>
+        </div>
     </header>
+
+    <!-- Secondary menu -->
+    <div class="secondary-nav-bar">
+        <nav class="main-nav">
+            <ul>
+                <li><a href="{{ url('/mainpage') }}">Home</a></li>
+                <li><a href="{{ url('/about') }}"class="active">About</a></li>
+                <li><a href="{{ url('/contact') }}">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
 
     <main class="hero about-hero">
         <div class="hero-text about-text">
@@ -34,9 +57,10 @@
         <div class="hero-images about-images">
             <img src="{{ asset('foto/makanan1.png') }}" alt="Steak and salad bowl" class="food-bowl food-bowl-1">
             <img src="{{ asset('foto/makanan2.png') }}" alt="Pasta bowl" class="food-bowl food-bowl-2">
-            <img src="{{ asset('foto/makanan3.png') }}" alt="Chicken salad bowl" class="food-bowl food-bowl-3">
+         
         </div>
     </main>
-
 </body>
 </html>
+
+
