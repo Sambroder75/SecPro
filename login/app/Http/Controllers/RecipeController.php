@@ -16,7 +16,7 @@ class RecipeController extends Controller
     public function index()
     {
         // Start with the base query builder
-        $query = Recipe::query();
+        $query = Recipe::query()->with('user');
 
         // === START: NEW SEARCH LOGIC ===
         // Check if the request has a 'search' input
@@ -73,7 +73,8 @@ class RecipeController extends Controller
             'description' => $validatedData['description'],
             'ingredients' => $validatedData['ingredients'],
             'steps' => $validatedData['steps'],
-            'image_path' => $path, 
+            'image_path' => $path,
+            'user_id' => auth()->id(), 
         ]);
 
         // 4. Redirect to the new recipe's detail page

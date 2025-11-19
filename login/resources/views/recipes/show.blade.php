@@ -60,7 +60,7 @@
         </section>
 
         <!-- RIGHT COLUMN: COMMENTS -->
-        <section class="comments-section">
+        <section class="comments-section" id="comments">
             <h2>Comments</h2>
 
             <!-- List of Comments -->

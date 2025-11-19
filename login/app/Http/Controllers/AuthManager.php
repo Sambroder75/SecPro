@@ -31,7 +31,7 @@ class AuthManager extends Controller
 
         if (Auth::attempt($credentials)) {
             if (Auth::user()->hasRole('admin')) {
-            return redirect()->route('admin.dashboard'); // atau route admin kamu
+            return redirect()->route('mainpage'); // atau route admin kamu
         }
 
         if (Auth::user()->hasRole('user')) {

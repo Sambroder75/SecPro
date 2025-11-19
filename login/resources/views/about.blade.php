@@ -36,7 +36,7 @@
     <div class="secondary-nav-bar">
         <nav class="main-nav">
             <ul>
-                <li><a href="{{ url('/mainpage') }}">Home</a></li>
+                <li><a href="{{ route('mainpage') }}">Home</a></li>
                 <li><a href="{{ url('/about') }}"class="active">About</a></li>
                 <li><a href="{{ url('/contact') }}">Contact</a></li>
             </ul>
