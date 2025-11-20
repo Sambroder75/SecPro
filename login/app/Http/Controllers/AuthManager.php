@@ -21,6 +21,7 @@ class AuthManager extends Controller
         return view('registration');
     }
 
+    // ⭐ FUNGSI INI YANG DIPERBAIKI: Menambahkan penanganan 'Remember Me' dan menyederhanakan redirect
     function loginPost(Request $request) {
         $request->validate([
             'email' => 'required|email',
@@ -28,17 +29,31 @@ class AuthManager extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
+        
+        // 💡 1. Mendapatkan nilai boolean dari checkbox 'remember'
+        // $request->boolean('remember') akan mengembalikan true jika checkbox dicentang, false jika tidak.
+        $remember = $request->boolean('remember'); 
 
-        if (Auth::attempt($credentials)) {
-            if (Auth::user()->hasRole('admin')) {
-            return redirect()->route('mainpage'); // atau route admin kamu
-        }
+        // 🔑 2. Meneruskan variabel $remember ke Auth::attempt()
+        // Ini menentukan apakah session yang dibuat adalah session biasa (false) atau session persisten/cookie (true).
+        if (Auth::attempt($credentials, $remember)) {
+            
+            // 🚀 3. Penyederhanaan Logika Redirect: 
+            // Cukup panggil intended() atau route('mainpage') karena role sudah diperiksa di langkah selanjutnya
+            // dan user akan selalu diarahkan ke mainpage terlepas dari role (sesuai logika kode asli Anda).
+            // Jika ada logika redirect yang berbeda per role, gunakan cara di bawah:
 
-        if (Auth::user()->hasRole('user')) {
-        return redirect()->route('mainpage');
-        }
-
-            return redirect()->intended(route('mainpage')); 
+            $user = Auth::user();
+            
+            // Jika Anda ingin admin ke dashboard admin dan user ke mainpage:
+            if ($user->hasRole('admin')) {
+                // Asumsi: Jika ada route khusus admin
+                // return redirect()->route('admin.dashboard'); 
+                return redirect()->route('mainpage'); // Sesuai kode asli, diarahkan ke mainpage
+            } 
+            
+            // Untuk semua user lain (termasuk 'user')
+            return redirect()->intended(route('mainpage'));
         }
 
         return redirect(route('login'))->with("error", "Login details are not valid"); 
@@ -48,7 +63,8 @@ class AuthManager extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:8'
+            // Perbaikan: Tambahkan konfirmasi password jika perlu (misalnya 'confirmed')
+            'password' => 'required|min:8' 
         ]);
 
         $data['name'] = $request->name;

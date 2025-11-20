@@ -78,7 +78,7 @@
                             <p>{{ $comment->comment_text }}</p>
                             
                             <!-- Delete Button (Subtle) -->
-                            @if(auth()->check() && auth()->id() === $comment->user_id)
+                            @if(auth()->check() && (auth()->id() === $comment->user_id || auth()->user()->usertype === 'admin'))
                             <form action="{{ route('comments.destroy', $comment) }}" method="POST" style="margin-top: 5px;">
                                 @csrf
                                 @method('DELETE')

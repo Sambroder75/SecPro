@@ -33,8 +33,7 @@ class User extends Authenticatable
     /**
      * Auto-assign role "user" when a new user is created
      */
-    protected static function booted()
-{
+    protected static function booted(){
     static::created(function ($user) {
         if ($user->email !== 'admin@email.com') {
             $user->assignRole('user');

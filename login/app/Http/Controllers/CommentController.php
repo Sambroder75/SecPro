@@ -45,17 +45,15 @@ class CommentController extends Controller
         return back()->with('success', 'Comment posted.');
     }
 
-    /**
-     * Remove the specified comment.
-     */
-    public function destroy(Comment $comment): RedirectResponse
+    public function destroy(Comment $comment)
     {
-        // Security check disabled for testing
-        // $userId = auth()->id();
-        // if ($userId !== $comment->user_id) { abort(403); }
+        if (auth()->id() !== $comment->user_id && auth()->user()->usertype !== 'admin') {
+        abort(403, 'Unauthorized action.');
+        }   
 
         $comment->delete();
 
-        return back()->with('success', 'Comment deleted.');
+    return back()->with('success', 'Comment deleted successfully!');
     }
+
 }
