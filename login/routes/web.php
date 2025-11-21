@@ -57,17 +57,8 @@ Route::post('/login', [AuthManager::class,'loginPost'])->name('login.post');
 Route::get('/registration', [AuthManager::class,'registration'])->name('registration');
 Route::post('/registration', [AuthManager::class,'registrationPost'])->name('registration.post');
 
-// Logout (Hanya bisa diakses setelah login)
-Route::post('/logout', function() {
-    Auth::logout();
-    return redirect('/');
-})->name('logout');
+Route::post('/logout', [AuthManager::class, 'logout'])->name('logout');
 
-
-
-// ----------------------------------------------------------------------
-// 3. RUTE RESEP (RESOURCE & CUSTOM)
-// ----------------------------------------------------------------------
 
 // Resource Recipes (Meliputi index, store, update, destroy, show)
 Route::resource('recipes', RecipeController::class);

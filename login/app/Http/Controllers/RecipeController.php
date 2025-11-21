@@ -65,7 +65,7 @@ class RecipeController extends Controller
             'description' => 'required|string',
             'ingredients' => 'required|string',
             'steps' => 'required|string',
-            'recipeImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'recipeImage' => 'required|image|mimes:png|max:2048',
         ]);
 
         // 2. Handle the file upload

@@ -21,7 +21,6 @@ class AuthManager extends Controller
         return view('registration');
     }
 
-    // ⭐ FUNGSI INI YANG DIPERBAIKI: Menambahkan penanganan 'Remember Me' dan menyederhanakan redirect
     function loginPost(Request $request) {
         $request->validate([
             'email' => 'required|email',
@@ -29,49 +28,34 @@ class AuthManager extends Controller
         ]);
 
         $credentials = $request->only('email', 'password');
-        
-        // 💡 1. Mendapatkan nilai boolean dari checkbox 'remember'
-        // $request->boolean('remember') akan mengembalikan true jika checkbox dicentang, false jika tidak.
-        $remember = $request->boolean('remember'); 
+        $remember = $request->boolean('remember');
 
-        // 🔑 2. Meneruskan variabel $remember ke Auth::attempt()
-        // Ini menentukan apakah session yang dibuat adalah session biasa (false) atau session persisten/cookie (true).
         if (Auth::attempt($credentials, $remember)) {
-            
-            // 🚀 3. Penyederhanaan Logika Redirect: 
-            // Cukup panggil intended() atau route('mainpage') karena role sudah diperiksa di langkah selanjutnya
-            // dan user akan selalu diarahkan ke mainpage terlepas dari role (sesuai logika kode asli Anda).
-            // Jika ada logika redirect yang berbeda per role, gunakan cara di bawah:
-
             $user = Auth::user();
-            
-            // Jika Anda ingin admin ke dashboard admin dan user ke mainpage:
-            if ($user->hasRole('admin')) {
-                // Asumsi: Jika ada route khusus admin
-                // return redirect()->route('admin.dashboard'); 
-                return redirect()->route('mainpage'); // Sesuai kode asli, diarahkan ke mainpage
-            } 
-            
-            // Untuk semua user lain (termasuk 'user')
+
+            if (method_exists($user, 'hasRole') && $user->hasRole('admin')) {
+                return redirect()->route('mainpage');
+            }
+
             return redirect()->intended(route('mainpage'));
         }
 
-        return redirect(route('login'))->with("error", "Login details are not valid"); 
+        return redirect(route('login'))->with("error", "Login details are not valid");
     }
 
     function registrationPost(Request $request) {
-    $request->validate([
-        'name' => 'required',
-        'email' => [
-            'required',
-            'email',
-            'unique:users',
-            'regex:/^[A-Za-z0-9._%+-]+@gmail\.com$/i'
-        ],
-        'password' => 'required|min:8'
-    ],[
-        'email.regex' => 'Email harus menggunakan domain @gmail.com.',
-    ]);
+        $request->validate([
+            'name' => 'required',
+            'email' => [
+                'required',
+                'email',
+                'unique:users',
+                'regex:/^[A-Za-z0-9._%+-]+@gmail\.com$/i'
+            ],
+            'password' => 'required|min:8'
+        ],[
+            'email.regex' => 'Email harus menggunakan domain @gmail.com.',
+        ]);
 
         $data['name'] = $request->name;
         $data['email'] = $request->email;
@@ -80,15 +64,33 @@ class AuthManager extends Controller
         $user = User::create($data);
 
         if (!$user) {
-            return redirect(route('registration'))->with("error", "Registration failed, please try again."); 
+            return redirect(route('registration'))->with("error", "Registration failed, please try again.");
         }
 
-        return redirect(route('login'))->with("success", "Registration success, please login to enter the app."); 
+        return redirect(route('login'))->with("success", "Registration success, please login to enter the app.");
     }
-    
-    function logout() {
-        Session::flush();
+
+    // 🔴 LOGOUT YANG WAJIB DIPAKAI
+    function logout(Request $request)
+    {
+        // Ambil user yang sedang login SEBELUM logout
+        $user = Auth::user();
+
+        // Logout (hapus session + remember-me cookie)
         Auth::logout();
-        return redirect(route('login'));
+
+        // Hapus remember_token di DB
+        if ($user) {
+            $user->setRememberToken(null);
+            $user->save();
+        }
+
+        // Invalidate session (best practice)
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }
+
+//HI 
