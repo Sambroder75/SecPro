@@ -5,16 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dapur Rasa - Contact</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Playfair+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Georgia:wght@400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main_page.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/contact_page.css') }}">
+    
+    <style>
+        .contact-hero {
+            background-color: var(--color-primary-orange);
+            color: white;
+            padding: 40px var(--content-padding);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .contact-hero h1 {
+            margin: 0;
+            font-family: 'Georgia', serif;
+            font-size: 2.5rem;
+        }
+
+        .contact-hero p {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .team-section {
+            padding: 0 var(--content-padding);
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+        }
+
+        .team-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        /* Card styling matching your Recipe Card aesthetics */
+        .member-card {
+            background: white;
+            width: 280px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .member-img-wrapper {
+            background-color: #fcf9f5;
+            padding: 30px 0;
+            border-bottom: 1px solid var(--color-separator-tan);
+        }
+
+        .member-img-wrapper img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .member-info {
+            padding: 20px;
+        }
+
+        .member-info h3 {
+            margin: 0 0 5px 0;
+            color: var(--color-text-dark);
+            font-size: 1.1rem;
+            font-family: 'Georgia', serif;
+        }
+
+        .member-info p {
+            margin: 0;
+            color: #888;
+            font-size: 0.9rem;
+        }
+    </style>
 </head>
 
-<body class="contact-page-body">
+<body>
 
-    <!-- HEADER (sama seperti home & about) -->
     <header class="navbar">
         <img src="{{ asset('foto/logokecil.png') }}" alt="Logo Dapur Rasa" class="logo">
 
@@ -32,7 +113,6 @@
         </div>
     </header>
 
-    <!-- Secondary menu -->
     <div class="secondary-nav-bar">
         <nav class="main-nav">
             <ul>
@@ -43,141 +123,78 @@
         </nav>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <main class="contact-container">
+    <main>
+        <section class="contact-hero">
+            <h1>Kelompok 5</h1>
+            <p>Meet the team behind Dapur Rasa</p>
+        </section>
 
-        <h1 class="contact-title">Kelompok 5</h1>
+        <section class="team-section">
+            <div class="team-grid">
 
-        <ul class="contact-list">
-            <li>Samuel Christian</li>
-            <li>Sean Richard</li>
-            <li>Aurelio Suhartono</li>
-            <li>Andrew Emmanuel William Pakpahan</li>
-            <li>Paul Abednego Hasphine</li>
-            <li>Justin Raphael Joli Putra</li>
-        </ul>
+                <div class="member-card">
+                    <div class="member-img-wrapper">
+                        <img src="https://ui-avatars.com/api/?name=Samuel+Christian&background=e8a05e&color=fff&size=128" alt="Samuel Christian">
+                    </div>
+                    <div class="member-info">
+                        <h3>Samuel Christian</h3>
+                        <p>Team Member</p>
+                    </div>
+                </div>
 
+                <div class="member-card">
+                    <div class="member-img-wrapper">
+                        <img src="https://ui-avatars.com/api/?name=Sean+Richard&background=558b2f&color=fff&size=128" alt="Sean Richard">
+                    </div>
+                    <div class="member-info">
+                        <h3>Sean Richard</h3>
+                        <p>Team Member</p>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-img-wrapper">
+                        <img src="https://ui-avatars.com/api/?name=Aurelio+Suhartono&background=e8a05e&color=fff&size=128" alt="Aurelio Suhartono">
+                    </div>
+                    <div class="member-info">
+                        <h3>Aurelio Suhartono</h3>
+                        <p>Team Member</p>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-img-wrapper">
+                        <img src="https://ui-avatars.com/api/?name=Andrew+Emmanuel&background=558b2f&color=fff&size=128" alt="Andrew Emmanuel">
+                    </div>
+                    <div class="member-info">
+                        <h3>Andrew Emmanuel William Pakpahan</h3>
+                        <p>Team Member</p>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-img-wrapper">
+                        <img src="https://ui-avatars.com/api/?name=Paul+Abednego&background=e8a05e&color=fff&size=128" alt="Paul Abednego">
+                    </div>
+                    <div class="member-info">
+                        <h3>Paul Abednego Hasphine</h3>
+                        <p>Team Member</p>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-img-wrapper">
+                        <img src="https://ui-avatars.com/api/?name=Justin+Raphael&background=558b2f&color=fff&size=128" alt="Justin Raphael">
+                    </div>
+                    <div class="member-info">
+                        <h3>Justin Raphael Joli Putra</h3>
+                        <p>Team Member</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
     </main>
-
-
-
-
-
-
-    <!-- POPUP MODAL -->
-<div id="searchModal" class="search-modal">
-    <div class="search-modal-content">
-        <span class="modal-close">&times;</span>
-
-        <h3 class="modal-title">Find your recipe!</h3>
-
-        <div class="modal-grid">
-
-    <div class="modal-card" onclick="window.location.href='/detailresep'">
-        <img src="foto/soy_fried_chicken.jpg" alt="">
-        <div class="modal-card-info">
-            <h4>Soy Fried Chicken</h4>
-            <p>Resep Soy Fried Chicken khas Indonesia dengan bumbu autentik, yang enaklah pokoknya.</p>
-        </div>
-    </div>
-
-    <div class="modal-card" onclick="window.location.href='/detailresep'">
-        <img src="foto/sateayam.jpg" alt="">
-        <div class="modal-card-info">
-            <h4>Sate Ayam</h4>
-            <p>Sate ayam dengan bumbu kacang gurih manis.</p>
-        </div>
-    </div>
-
-   <div class="modal-card" onclick="window.location.href='/detailresep'">
-        <img src="foto/pastacarbonara.jpg" alt="">
-        <div class="modal-card-info">
-            <h4>Pasta Carbonara</h4>
-            <p>Pasta creamy dengan keju dan smoked beef.</p>
-        </div>
-    </div>
-
-    <div class="modal-card" onclick="window.location.href='/detailresep'">
-        <img src="foto/chickenkatsu.jpg" alt="">
-        <div class="modal-card-info">
-            <h4>Chicken Katsu</h4>
-            <p>Daging ayam goreng tepung renyah khas Jepang.</p>
-        </div>
-    </div>
-
-    <div class="modal-card" onclick="window.location.href='/detailresep'">
-        <img src="foto/rendang.jpg" alt="">
-        <div class="modal-card-info">
-            <h4>Rendang</h4>
-            <p>Daging rendang khas Padang, wangi rempah.</p>
-        </div>
-    </div>
-
-    <div class="modal-card" onclick="window.location.href='/detailresep'">
-        <img src="foto/icecream.jpg" alt="">
-        <div class="modal-card-info">
-            <h4>Ice Cream</h4>
-            <p>Dessert manis dan creamy, cocok untuk semua.</p>
-        </div>
-    </div>
-
-    <div class="modal-card" onclick="window.location.href='/detailresep'">
-        <img src="foto/salad.jpg" alt="">
-        <div class="modal-card-info">
-            <h4>Salad Sayur</h4>
-            <p>Sayuran segar dan dressing sehat.</p>
-        </div>
-    </div>
-
-    <div class="modal-card" onclick="window.location.href='/detailresep'">
-        <img src="foto/ramen.jpg" alt="">
-        <div class="modal-card-info">
-            <h4>Ramen</h4>
-            <p>Mie kuah kaldu Jepang yang gurih.</p>
-        </div>
-    </div>
-
-    <div class="modal-card" onclick="window.location.href='/detailresep'">
-        <img src="foto/burger.jpg" alt="">
-        <div class="modal-card-info">
-            <h4>Burger</h4>
-            <p>Roti isi daging juicy dan sayuran segar.</p>
-        </div>
-    </div>
-
-</div>
-
-    </div>
-</div>
-
-
-<script>
-    const modal = document.getElementById("searchModal");
-    const searchInput = document.querySelector(".search-form input");
-    const closeBtn = document.querySelector(".modal-close");
-
-    // buka modal saat input ditekan
-    searchInput.addEventListener("focus", () => {
-        modal.style.display = "flex";
-    });
-
-    // tombol close
-    closeBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
-    // klik area luar modal
-    window.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-</script>
-
-
-
-
-
 
 </body>
 </html>
