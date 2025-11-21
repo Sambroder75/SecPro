@@ -56,17 +56,15 @@
     </header>
 
     <main>
-        <!-- LEFT COLUMN: RECIPE -->
         <section class="recipe-section">
             <a href="javascript:history.back()" class="back-btn">
                 &larr; Back to Recipes
             </a>
 
-            <!-- Recipe Image -->
             <div class="recipe-image-wrapper">
                 <img src="{{ $recipe->image_path ? asset('storage/' . $recipe->image_path) : asset('foto/makanan1.png') }}" alt="{{ $recipe->title }}" class="recipe-img">
 
-                @if(auth()->check() && auth()->id() === $recipe->user_id)
+                @if(auth()->check() && (auth()->id() === $recipe->user_id || strtolower(auth()->user()->usertype) === 'admin'))
                 <div class="recipe-action-buttons">
                     <a href="{{ route('recipes.edit', $recipe) }}" title="Edit Recipe">✏️</a>
                     <form action="{{ route('recipes.destroy', $recipe) }}" method="POST" onsubmit="return confirm('Delete this recipe?');">
@@ -78,7 +76,6 @@
                 @endif
             </div>
 
-            <!-- Recipe Content -->
             <h1 style="font-family: 'Georgia', serif; font-size: 2rem; margin-bottom: 10px;">{{ $recipe->title }}</h1>
             
             <div class="author">
@@ -105,15 +102,12 @@
             </div>
         </section>
 
-        <!-- RIGHT COLUMN: COMMENTS -->
         <section class="comments-section" id="comments">
             <h2>Comments</h2>
 
-            <!-- List of Comments -->
             <div class="comments-list-container">
                 @forelse($recipe->comments()->with('user')->latest()->get() as $comment)
                     <div class="comment">
-                        <!-- Avatar -->
                         <img src="https://ui-avatars.com/api/?name={{ urlencode($comment->user?->name ?? 'Guest') }}&background=random" alt="User">
 
                         <div class="comment-content">
@@ -123,13 +117,12 @@
                             </h4>
                             <p>{{ $comment->comment_text }}</p>
 
-                            <!-- Delete Button (Subtle) -->
-                            @if(auth()->check() && (auth()->id() === $comment->user_id || auth()->user()?->usertype === 'admin'))
-                            <form action="{{ route('comments.destroy', $comment) }}" method="POST" style="margin-top: 5px;">
-                                @csrf
-                                @method('DELETE')
+                            @if(auth()->check() && (auth()->id() === $comment->user_id || strtolower(auth()->user()->usertype) === 'admin' || auth()->id() === 1))
+                                <form action="{{ route('comments.destroy', $comment) }}" method="POST" style="margin-top: 5px;">
+                                    @csrf
+                                    @method('DELETE')
                                 <button type="submit" style="background:none; border:none; color: #e74c3c; font-size: 11px; cursor: pointer; padding: 0;">Delete</button>
-                            </form>
+                                </form>
                             @endif
                         </div>
                     </div>
@@ -138,15 +131,12 @@
                 @endforelse
             </div>
 
-            <!-- Comment Form (Bottom) -->
             <div class="comment-input">
-                <!-- User Avatar (Current User) -->
                 <img src="{{ asset('foto/logoprofile.png') }}" alt="You">
 
                 <form action="{{ route('comments.store', $recipe) }}" method="POST" class="comment-form-wrapper">
                     @csrf
 
-                    <!-- Comment Text -->
                     <input type="text" name="comment_text" placeholder="Add a comment..." required autocomplete="off">
 
                     <button type="submit">Post</button>

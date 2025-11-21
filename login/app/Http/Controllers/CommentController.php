@@ -33,8 +33,11 @@ class CommentController extends Controller
     {
     $user = auth()->user();
 
-    // cek pemilik komentar ATAU admin (via Spatie)
-    if ($user->id !== $comment->user_id && ! $user->hasRole('admin')) {
+    // Allow if:
+    // 1. User owns the comment OR
+    // 2. User is 'admin' OR
+    // 3. User ID is 1 (Super Admin/You)
+    if ($user->id !== $comment->user_id && $user->usertype !== 'admin' && $user->id !== 1) {
         abort(403, 'Unauthorized.');
     }
 
