@@ -45,6 +45,8 @@ class RecipeController extends Controller
      */
     public function create()
     {
+        abort_unless(auth()->check(), 403, 'Unauthorized');
+
         return view('recipes.create');
     }
 
@@ -56,6 +58,8 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
+        abort_unless(auth()->check(), 403, 'Unauthorized');
+
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -74,7 +78,7 @@ class RecipeController extends Controller
             'ingredients' => $validatedData['ingredients'],
             'steps' => $validatedData['steps'],
             'image_path' => $path,
-            'user_id' => auth()->id(), 
+            'user_id' => auth()->id(),
         ]);
 
         // 4. Redirect to the new recipe's detail page
@@ -98,6 +102,8 @@ class RecipeController extends Controller
      */
     public function edit(Recipe $recipe) // Changed $id to Recipe $recipe for automatic binding
     {
+        abort_unless(auth()->check() && auth()->id() === $recipe->user_id, 403, 'Unauthorized');
+
         return view('recipes.edit', [
             'recipe' => $recipe
         ]);
@@ -108,6 +114,8 @@ class RecipeController extends Controller
      */
     public function update(Request $request, Recipe $recipe)
     {
+        abort_unless(auth()->check() && auth()->id() === $recipe->user_id, 403, 'Unauthorized');
+
         // 1. Validate (Notice: image is 'nullable' here, so it's optional)
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
@@ -156,6 +164,8 @@ class RecipeController extends Controller
      */
     public function destroy(Recipe $recipe)
     {
+        abort_unless(auth()->check() && auth()->id() === $recipe->user_id, 403, 'Unauthorized');
+
         // Optional: Delete image when deleting recipe
         if ($recipe->image_path) {
             Storage::delete('public/' . $recipe->image_path);

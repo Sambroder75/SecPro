@@ -27,7 +27,6 @@
 
 <main>
 
-    {{-- === RECIPE HEADER === --}}
     @if(isset($recipe))
     {{-- === RECIPE HEADER === --}}
     <section class="recipe-section">
@@ -52,20 +51,44 @@
     <section class="comments-section">
         <h2>Comments</h2>
 
-        {{-- LIST EXISTING COMMENTS --}}
+        {{-- LIST COMMENTS --}}
         @forelse ($comments as $comment)
             <div class="comment">
                 <img src="https://cdn-icons-png.flaticon.com/128/1144/1144760.png" alt="user" />
 
-                <div>
-                    <h4>{{ $comment->username ?? 'Guest' }}</h4>
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <h4>{{ $comment->username ?? 'Guest' }}</h4>
+
+                        @auth
+                            {{-- CEK ADMIN MENGGUNAKAN SPATIE --}}
+                            @php
+                                $user = auth()->user();
+                                $isAdmin = $user->hasRole('admin');
+                            @endphp
+
+                            {{-- PEMILIK KOMENTAR / ADMIN BISA DELETE --}}
+                            @if($user->id === $comment->user_id || $isAdmin)
+                                <form action="{{ route('comments.destroy', $comment) }}"
+                                      method="POST"
+                                      onsubmit="return confirm('Hapus komentar ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                            style="color:red; background:none; border:none; cursor:pointer;">
+                                        Delete
+                                    </button>
+                                </form>
+                            @endif
+                        @endauth
+                    </div>
+
                     <p>{{ $comment->comment_text }}</p>
                 </div>
             </div>
         @empty
             <p>No comments yet. Be the first!</p>
         @endforelse
-
 
         {{-- NEW COMMENT FORM --}}
         <form action="{{ route('comments.store', $recipe->id) }}" method="POST">

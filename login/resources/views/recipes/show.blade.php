@@ -7,8 +7,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Georgia:wght@400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="{{ asset('css/style.css') }}"> 
-    <!-- Using your specific comment layout CSS -->
     <link rel="stylesheet" href="{{ asset('css/comment.css') }}">
+    <style>
+        .recipe-image-wrapper {
+            position: relative;
+        }
+
+        .recipe-action-buttons {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .recipe-action-buttons a,
+        .recipe-action-buttons button {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .recipe-action-buttons a:hover,
+        .recipe-action-buttons button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 16px rgba(0, 0, 0, 0.12);
+        }
+    </style>
 </head>
 <body>
 
@@ -30,14 +63,27 @@
             </a>
 
             <!-- Recipe Image -->
-            <img src="{{ asset('storage/' . $recipe->image_path) }}" alt="{{ $recipe->title }}" class="recipe-img">
+            <div class="recipe-image-wrapper">
+                <img src="{{ $recipe->image_path ? asset('storage/' . $recipe->image_path) : asset('foto/makanan1.png') }}" alt="{{ $recipe->title }}" class="recipe-img">
+
+                @if(auth()->check() && auth()->id() === $recipe->user_id)
+                <div class="recipe-action-buttons">
+                    <a href="{{ route('recipes.edit', $recipe) }}" title="Edit Recipe">✏️</a>
+                    <form action="{{ route('recipes.destroy', $recipe) }}" method="POST" onsubmit="return confirm('Delete this recipe?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" title="Delete Recipe">🗑️</button>
+                    </form>
+                </div>
+                @endif
+            </div>
 
             <!-- Recipe Content -->
             <h1 style="font-family: 'Georgia', serif; font-size: 2rem; margin-bottom: 10px;">{{ $recipe->title }}</h1>
             
             <div class="author">
                 <img src="{{ asset('foto/logoprofile.png') }}" alt="Author">
-                <span>By <strong>Admin</strong></span> <!-- Replace with dynamic author if available -->
+                <span>By <strong>{{ $recipe->user?->name ?? 'Community Chef' }}</strong></span>
             </div>
 
             <p style="line-height: 1.6; color: #555; margin-bottom: 30px;">
@@ -65,20 +111,20 @@
 
             <!-- List of Comments -->
             <div class="comments-list-container">
-                @forelse($recipe->comments()->latest()->get() as $comment)
+                @forelse($recipe->comments()->with('user')->latest()->get() as $comment)
                     <div class="comment">
                         <!-- Avatar -->
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode($comment->username ?? 'Guest') }}&background=random" alt="User">
-                        
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode($comment->user?->name ?? 'Guest') }}&background=random" alt="User">
+
                         <div class="comment-content">
                             <h4>
-                                {{ $comment->username ?? $comment->user?->name ?? 'Guest' }}
+                                {{ $comment->user?->name ?? 'Guest' }}
                                 <span class="comment-date">{{ $comment->created_at->diffForHumans(null, true) }}</span>
                             </h4>
                             <p>{{ $comment->comment_text }}</p>
-                            
+
                             <!-- Delete Button (Subtle) -->
-                            @if(auth()->check() && (auth()->id() === $comment->user_id || auth()->user()->usertype === 'admin'))
+                            @if(auth()->check() && (auth()->id() === $comment->user_id || auth()->user()?->usertype === 'admin'))
                             <form action="{{ route('comments.destroy', $comment) }}" method="POST" style="margin-top: 5px;">
                                 @csrf
                                 @method('DELETE')
@@ -96,24 +142,18 @@
             <div class="comment-input">
                 <!-- User Avatar (Current User) -->
                 <img src="{{ asset('foto/logoprofile.png') }}" alt="You">
-                
+
                 <form action="{{ route('comments.store', $recipe) }}" method="POST" class="comment-form-wrapper">
                     @csrf
-                    
-                    <!-- Guest Name Input (Only show if guest) -->
-                    @if(!auth()->check())
-                    <input type="text" name="username" class="guest-name-input" placeholder="Name" required>
-                    @endif
 
                     <!-- Comment Text -->
                     <input type="text" name="comment_text" placeholder="Add a comment..." required autocomplete="off">
-                    
+
                     <button type="submit">Post</button>
                 </form>
             </div>
 
         </section>
     </main>
-
 </body>
 </html>

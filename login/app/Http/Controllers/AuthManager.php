@@ -60,12 +60,18 @@ class AuthManager extends Controller
     }
 
     function registrationPost(Request $request) {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            // Perbaikan: Tambahkan konfirmasi password jika perlu (misalnya 'confirmed')
-            'password' => 'required|min:8' 
-        ]);
+    $request->validate([
+        'name' => 'required',
+        'email' => [
+            'required',
+            'email',
+            'unique:users',
+            'regex:/^[A-Za-z0-9._%+-]+@gmail\.com$/i'
+        ],
+        'password' => 'required|min:8'
+    ],[
+        'email.regex' => 'Email harus menggunakan domain @gmail.com.',
+    ]);
 
         $data['name'] = $request->name;
         $data['email'] = $request->email;

@@ -58,7 +58,11 @@ Route::get('/registration', [AuthManager::class,'registration'])->name('registra
 Route::post('/registration', [AuthManager::class,'registrationPost'])->name('registration.post');
 
 // Logout (Hanya bisa diakses setelah login)
-Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
+Route::post('/logout', function() {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
+
 
 
 // ----------------------------------------------------------------------

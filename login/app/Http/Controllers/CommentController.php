@@ -3,55 +3,42 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-// --- FIX: ADD THESE IMPORTS ---
-use App\Http\Requests\StoreCommentRequest; // <--- Fixes "Class does not exist" error
+use App\Http\Requests\StoreCommentRequest;
 use App\Models\Comment;
 use App\Models\Recipe;
 use Illuminate\Http\RedirectResponse;
-// ------------------------------
 
 class CommentController extends Controller
 {
-    // --- FIX: ADD INDEX METHOD ---
-    // This is required to SHOW the comments page. Without it, you can't see the form.
+    // Tampilkan halaman comment untuk 1 resep
     public function index(Recipe $recipe)
     {
         $comments = $recipe->comments()->latest()->get();
         return view('comment', compact('recipe', 'comments'));
     }
 
-    /**
-     * Store a newly created comment for a recipe.
-     */
+    // Simpan komentar baru
     public function store(StoreCommentRequest $request, Recipe $recipe): RedirectResponse
     {
         $data = $request->validated();
-
-        // --- DEV MODE: Hardcode User ID 1 for testing ---
-        // Since you likely aren't logged in as a real user yet, use ID 1.
-        // When your login system is ready, change this back to: $data['user_id'] = auth()->id();
-        $data['user_id'] = 1;
-        //nanti ganti ke yg ini ya, yg atas ngecek klo at least codenya bisa ato ga
-        //$data['user_id'] = auth()->id()
-
-        // Optional: If your form sends a username (for guests), use it.
-        if (!isset($data['username'])) {
-            $data['username'] = 'Test User';
-        }
+        $data['user_id'] = auth()->id();
 
         $recipe->comments()->create($data);
 
         return back()->with('success', 'Comment posted.');
     }
 
+    // Hapus komentar
     public function destroy(Comment $comment)
     {
-        if (auth()->id() !== $comment->user_id && auth()->user()->usertype !== 'admin') {
-        abort(403, 'Unauthorized action.');
-        }   
+    $user = auth()->user();
 
-        $comment->delete();
+    // cek pemilik komentar ATAU admin (via Spatie)
+    if ($user->id !== $comment->user_id && ! $user->hasRole('admin')) {
+        abort(403, 'Unauthorized.');
+    }
+
+    $comment->delete();
 
     return back()->with('success', 'Comment deleted successfully!');
     }
