@@ -22,7 +22,6 @@
 
         <div class="profile-pic">
             <img src="{{ asset('foto/curry.png') }}" alt="Foto Profile">
-            <button type="button" class="change-btn">Change</button>
         </div>
 
         <label for="name" style="display:block; text-align:left; margin-left: 10%; font-weight:bold;">
