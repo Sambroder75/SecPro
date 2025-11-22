@@ -67,10 +67,17 @@ Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [Tampilan::class, 'show'])->name('profile');
 
+    Route::get('/profile/edit', [Tampilan::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [Tampilan::class, 'update'])->name('profile.update');
+
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
     
 });
 
+
+
 require __DIR__.'/auth.php';
+

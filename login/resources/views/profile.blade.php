@@ -24,7 +24,6 @@
           cursor: pointer;
           text-decoration: none;
       }
-
       .floating-logout:hover {
           filter: brightness(0.95);
       }
@@ -36,8 +35,15 @@
     <button class="back-btn" onclick='window.location.href="{{ route("mainpage") }}"'>
         <img src="{{ asset('foto/arrow1.png') }}" alt="back">
     </button>
-    <button class="edit-btn" onclick='window.location.href="{{ url("/editprofile") }}"'>Edit Profile</button>
-    <button class="create-btn" onclick='window.location.href="{{ route("recipes.create") }}"'>Create +</button>
+
+    {{-- EDIT PROFILE → route profile.edit --}}
+    <button class="edit-btn" onclick='window.location.href="{{ route("profile.edit") }}"'>
+        Edit Profile
+    </button>
+
+    <button class="create-btn" onclick='window.location.href="{{ route("recipes.create") }}"'>
+        Create +
+    </button>
   </header>
 
   <div class="banner">
@@ -77,19 +83,20 @@
         <small style="color:#777;">Uploaded on {{ $recipe->created_at->format('M d, Y') }}</small>
       </div>
     @empty
-      <p style="grid-column: 1 / -1; text-align:center; color:#555;">You haven't uploaded any recipes yet. <a href="{{ route('recipes.create') }}">Create one now.</a></p>
+      <p style="grid-column: 1 / -1; text-align:center; color:#555;">
+        You haven't uploaded any recipes yet.
+        <a href="{{ route('recipes.create') }}">Create one now.</a>
+      </p>
     @endforelse
   </div>
 
   @auth
-  {{-- Tombol logout mengapung --}}
   <a href="{{ route('logout') }}"
      class="floating-logout"
      onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
       Logout
   </a>
 
-  {{-- Form POST untuk logout (wajib di Laravel) --}}
   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
       @csrf
   </form>

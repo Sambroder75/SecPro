@@ -25,7 +25,7 @@ class RecipeController extends Controller
                 ->orWhere('description', 'like', "%{$searchTerm}%");
             });
         }
-        
+
         $recipes = $query->latest()->get();
 
         return view('recipes.index', compact('recipes'));
