@@ -18,7 +18,6 @@ return new class extends Migration
             $table->text('comment_text');
             $table->timestamps();
 
-        // Foreign keys
             $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

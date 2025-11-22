@@ -70,27 +70,20 @@ class AuthManager extends Controller
         return redirect(route('login'))->with("success", "Registration success, please login to enter the app.");
     }
 
-    // 🔴 LOGOUT YANG WAJIB DIPAKAI
     function logout(Request $request)
     {
-        // Ambil user yang sedang login SEBELUM logout
         $user = Auth::user();
 
-        // Logout (hapus session + remember-me cookie)
         Auth::logout();
 
-        // Hapus remember_token di DB
         if ($user) {
             $user->setRememberToken(null);
             $user->save();
         }
 
-        // Invalidate session (best practice)
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect()->route('login');
     }
 }
-
-//HI 

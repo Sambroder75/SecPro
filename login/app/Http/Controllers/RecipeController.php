@@ -84,8 +84,6 @@ class RecipeController extends Controller
     {
         $user = auth()->user();
 
-        // --- UPDATED PERMISSION CHECK ---
-        // Allow if Owner OR User ID 1 OR Admin
         if (!$user || ($user->id !== $recipe->user_id && $user->id !== 1 && strtolower($user->usertype) !== 'admin')) {
             abort(403, 'Unauthorized');
         }
@@ -102,7 +100,6 @@ class RecipeController extends Controller
     {
         $user = auth()->user();
 
-        // --- UPDATED PERMISSION CHECK ---
         if (!$user || ($user->id !== $recipe->user_id && $user->id !== 1 && strtolower($user->usertype) !== 'admin')) {
             abort(403, 'Unauthorized');
         }
@@ -143,8 +140,6 @@ class RecipeController extends Controller
     {
         $user = auth()->user();
 
-        // --- UPDATED PERMISSION CHECK ---
-        // Allow if Owner OR User ID 1 OR Admin
         if (!$user || ($user->id !== $recipe->user_id && $user->id !== 1 && strtolower($user->usertype) !== 'admin')) {
             abort(403, 'Unauthorized');
         }
